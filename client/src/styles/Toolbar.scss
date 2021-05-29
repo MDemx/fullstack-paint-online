@@ -1,0 +1,77 @@
+@import "variables";
+
+.toolbar {
+  height: $toolbar-height;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  box-shadow: 0 4px 5px gray;
+  z-index: 999;
+
+  &__btn {
+    width: 25px;
+    height: 25px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-size: cover;
+    margin-left: 10px;
+  }
+
+  .brush {
+    background: url("../assets/images/brush.png") no-repeat center center;
+  }
+
+  .rect {
+    background: url("../assets/images/rect.png") no-repeat center center;
+  }
+
+  .circle {
+    background: url("../assets/images/circle.png") no-repeat center center;
+  }
+
+  .eraser {
+    background: url("../assets/images/eraser.png") no-repeat center center;
+  }
+
+  .line {
+    background: url("../assets/images/line.png") no-repeat center center;
+  }
+
+  .undo {
+    margin-left: auto;
+    background: url("../assets/images/undo.png") no-repeat center center;
+  }
+
+  .redo {
+    background: url("../assets/images/redo.png") no-repeat center center;
+  }
+
+  .save {
+    background: url("../assets/images/save.png") no-repeat center center;
+    margin-right: 10px;
+  }
+}
+
+.settings-bar {
+  padding-left: 10px;
+  height: $toolbar-height;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  box-shadow: 0 4px 5px gray;
+  top: $toolbar-height;
+
+  &__item {
+    border-right: 1px solid gray;
+    margin: 0 10px;
+
+    input {
+      margin: 0 10px;
+    }
+  }
+}
