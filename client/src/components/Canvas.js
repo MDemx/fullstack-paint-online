@@ -8,6 +8,9 @@ import {useParams} from 'react-router-dom';
 import {Modal} from "antd";
 import Rect from "../tools/Rect";
 import axios from "axios";
+import Circle from "../tools/Circle";
+import Eraser from "../tools/Eraser";
+import Line from "../tools/Line";
 
 
 export const Canvas = observer(() => {
@@ -71,7 +74,16 @@ export const Canvas = observer(() => {
                 Brush.draw(ctx, figure.x, figure.y)
                 break
             case "rect":
-                Rect.staticDraw(ctx, figure.x, figure.y, figure.width, figure.height, figure.color)
+                Rect.staticDraw(ctx, figure.x, figure.y, figure.width, figure.height, figure.color, figure.strokeColor, figure.lineWidth)
+                break
+            case "circle":
+                Circle.staticDraw(ctx, figure.x, figure.y, figure.radius, figure.color, figure.strokeColor, figure.lineWidth)
+                break
+            case "eraser":
+                Eraser.draw(ctx, figure.x, figure.y, figure.lineWidth)
+                break
+            case "line":
+                Line.staticDraw(ctx, figure.xStart, figure.yStart, figure.xEnd, figure.yEnd, figure.lineWidth, figure.strokeColor)
                 break
             case "finish":
                 ctx.beginPath()
@@ -90,24 +102,18 @@ export const Canvas = observer(() => {
 
     const connectionHandler = () => {
         canvasState.setUsername(usernameRef.current.value)
-
-        handleCancel()
+        setIsModalVisible(false)
     }
-
-    const handleCancel = () => {
-        setIsModalVisible(false);
-    };
 
     return (
         <div className='canvas'>
             <Modal title="Hello"
                    visible={isModalVisible}
-                   onOk={connectionHandler}
-                   onCancel={handleCancel}>
+                   onOk={connectionHandler}>
                 <div>Enter your username</div>
                 <input ref={usernameRef} type='text'/>
             </Modal>
-            <canvas onMouseDown={() => mouseDownHandler()} ref={canvasRef} width={1000} height={700}/>
+            <canvas onMouseDown={() => mouseDownHandler()} ref={canvasRef} width={1000} height={500}/>
         </div>
     );
 })
