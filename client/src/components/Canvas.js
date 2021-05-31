@@ -11,7 +11,23 @@ import axios from "axios";
 import Circle from "../tools/Circle";
 import Eraser from "../tools/Eraser";
 import Line from "../tools/Line";
+import { store } from 'react-notifications-component';
 
+const createNotification = (username) => {
+    store.addNotification({
+        title: "Connection success!",
+        message: `User ${username} joined you 🤟`,
+        type: "success",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+            duration: 2000,
+            onScreen: true
+        }
+    });
+}
 
 export const Canvas = observer(() => {
 
@@ -55,7 +71,7 @@ export const Canvas = observer(() => {
 
                 switch (msg.method) {
                     case "connection":
-                        console.log(`User ${msg.username} connected`)
+                        createNotification(msg.username)
                         break
                     case "draw":
                         drawHandler(msg)
@@ -107,11 +123,12 @@ export const Canvas = observer(() => {
 
     return (
         <div className='canvas'>
-            <Modal title="Hello"
+            <Modal title="Welcome to paint online 👋"
                    visible={isModalVisible}
-                   onOk={connectionHandler}>
-                <div>Enter your username</div>
-                <input ref={usernameRef} type='text'/>
+                   onOk={connectionHandler}
+                   onCancel={() => alert("You need to enter username first 😉")}>
+                <div>Enter your username to start painting 🎨</div>
+                <input className='modalInput' placeholder={'Username...'} ref={usernameRef} type='text'/>
             </Modal>
             <canvas onMouseDown={() => mouseDownHandler()} ref={canvasRef} width={1000} height={500}/>
         </div>
